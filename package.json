@@ -1,0 +1,28 @@
+{
+  "name": "notilert",
+  "version": "1.0.0",
+  "description": "Notilert is a highly customisable yet simple javascript notification component integrates with ease within your app !",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HijenHEK/notilert.git"
+  },
+  "keywords": [
+    "notifications",
+    "alert",
+    "javascript",
+    "component",
+    "vanilla",
+    "notification",
+    "notify"
+  ],
+  "author": "Hijen EL Khalifi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HijenHEK/notilert/issues"
+  },
+  "homepage": "https://github.com/HijenHEK/notilert#readme"
+}
