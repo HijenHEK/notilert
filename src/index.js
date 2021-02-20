@@ -40,9 +40,10 @@ export default class Notilert {
         case 'danger':
           this.bgColor = '#E54D42';
           break;
-        default:
+        case 'default':
           this.bgColor = '#ededed';
           this.color = '#000';
+          break;
       }
 
       // creating the html element
