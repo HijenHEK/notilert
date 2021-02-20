@@ -4,11 +4,11 @@
   "description": "Notilert is a highly customisable yet simple javascript notification component integrates with ease within your app !",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\"",
     "babel": "babel src -d dist",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .js",
-    "build": "npm run clean && npm run babel",
-    "test": "jest"
+    "build": "npm run clean && npm run babel"
   },
   "repository": {
     "type": "git",
