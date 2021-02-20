@@ -1,11 +1,14 @@
 {
   "name": "notilert",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Notilert is a highly customisable yet simple javascript notification component integrates with ease within your app !",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
-    "build": "babel src -d dist"
+    "babel": "babel src -d dist",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .js",
+    "build": "npm run clean && npm run babel",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,11 @@
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
-    "@babel/preset-env": "^7.12.17"
+    "@babel/preset-env": "^7.12.17",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.20.0",
+    "jest": "^26.6.3",
+    "rimraf": "^3.0.2"
   }
 }
