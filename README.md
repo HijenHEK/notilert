@@ -15,7 +15,7 @@
 
 - [live Notilert demo](https://hijenhek.github.io/notilert-demo/)
 
-## setup ( wait for 1.0.1 )
+## setup
 
 ```bash 
 
