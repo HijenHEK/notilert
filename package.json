@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "babel": "babel src -d dist",
+    "build:umd": "cross-env FILE_NAME=index webpack",
+    "build:umd:min": "cross-env BUILD_MODE=production npm run build:umd",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .js",
-    "build": "npm run clean && npm run babel"
+    "build": "npm run clean && npm run build:umd && npm run build:umd:min"
   },
   "repository": {
     "type": "git",
@@ -36,8 +38,12 @@
     "@babel/preset-env": "^7.12.17",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.20.0",
     "jest": "^26.6.3",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "webpack": "^5.23.0",
+    "webpack-cli": "^4.5.0"
   }
 }
