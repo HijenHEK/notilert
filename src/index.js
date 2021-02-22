@@ -44,8 +44,9 @@ export default class Notilert {
           this.bgColor = '#ededed';
           this.color = '#000';
           break;
+        default:
+          break;
       }
-
       // creating the html element
 
       window[`el${this.id}`] = document.createElement('div');
