@@ -1,5 +1,5 @@
 export default class Notilert {
-  // static count per corner
+  // ---- static count per corner ----
 
     static n = {
       'top-left': 0,
@@ -9,7 +9,7 @@ export default class Notilert {
     }
 
     constructor(opt = {}) {
-      // initializing parameters
+      // ---- initializing parameters ----
 
       this.content = opt.content ?? 'test';
       this.position = opt.position ?? 'bottom-right';
@@ -27,7 +27,7 @@ export default class Notilert {
       this.index = Notilert.n[this.position];
       this.id = `_${this.position}_${new Date().getTime()}_${this.index}`;
       document.body.style.overflowX = 'hidden';
-      // setting types
+      // ---- setting types ----
 
       if (this.type) this.color = '#fff';
       switch (this.type) {
@@ -47,19 +47,28 @@ export default class Notilert {
         default:
           break;
       }
-      // creating the html element
-
+      // ---- creating the html element ----
       window[`el${this.id}`] = document.createElement('div');
       window[`elIdAtt${this.id}`] = document.createAttribute('id');
       window[`elIdAtt${this.id}`].value = `Notilert${this.id}`;
       window[`el${this.id}`].setAttributeNode(window[`elIdAtt${this.id}`]);
-
-      window[`cnt${this.id}`] = document.createElement('span');
-      window[`cnt${this.id}`].innerText = this.content;
-      window[`el${this.id}`].appendChild(window[`cnt${this.id}`]);
-
+      // -- testing for html-content and parsing it to cnt element
+      if (/<(?=.*? .*?\/ ?>|br|h?|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(this.content)) {
+        window[`el${this.id}`].innerHTML = this.content;
+        if (window[`el${this.id}`].children.length > 1) {
+          window[`el${this.id}`].innerHTML = '';
+          window[`cnt${this.id}`] = document.createElement('div');
+          window[`cnt${this.id}`].innerHTML = this.content;
+          window[`el${this.id}`].appendChild(window[`cnt${this.id}`]);
+        }
+      } else {
+        window[`cnt${this.id}`] = document.createElement('div');
+        window[`cnt${this.id}`].innerText = this.content;
+        window[`el${this.id}`].appendChild(window[`cnt${this.id}`]);
+      }
+      window[`el${this.id}`].children[0].id = `cnt${this.id}`;
       if (this.closeable) {
-        window[`cl${this.id}`] = document.createElement('span');
+        window[`cl${this.id}`] = document.createElement('div');
         window[`cl${this.id}`].innerHTML = ' &#10006; ';
         window[`clStyleAtt${this.id}`] = document.createAttribute('style');
         window[`clStyleAtt${this.id}`].value = `font-weight:500;cursor:pointer;font-size : ${this.size} ; padding : 0.2rem; flex-shrink : 0; 
@@ -75,7 +84,7 @@ export default class Notilert {
 
       document.body.appendChild(window[`el${this.id}`]);
 
-      // grabbing the notif element
+      // ---- grabbing the notif element ----
 
       window[`notif${this.id}`] = document.getElementById(`Notilert${this.id}`);
       window[`close${this.id}`] = document.getElementById(`close${this.id}`);
@@ -90,7 +99,7 @@ export default class Notilert {
 
       window[`notif${this.id}`].setAttributeNode(window[`notifStyleAtt${this.id}`]);
 
-      // positioning
+      // ---- positioning ----
       if (this.position.includes('bottom')) {
         (window[`notif${this.id}`].style.bottom = `calc( 5% + calc(10px + ${this.height ?? `${window[`notif${this.id}`].offsetHeight}px`}) * ${this.index - 1}) `);
       } else {
@@ -106,7 +115,7 @@ export default class Notilert {
         window[`notif${this.id}`].style.transform = 'translateX(-150%)';
       }
 
-      // showing
+      //  ---- showing ----
       setTimeout(() => {
         this.show();
       }, 500);
