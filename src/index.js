@@ -23,6 +23,8 @@ export default class Notilert {
       this.closeable = opt.closeable ?? true;
       this.type = opt.type ?? null;
       this.class = opt.class ?? null;
+      this.link = opt.link ?? null;
+
       Notilert.n[this.position] += 1;
       this.index = Notilert.n[this.position];
       this.id = `_${this.position}_${new Date().getTime()}_${this.index}`;
@@ -135,6 +137,21 @@ export default class Notilert {
           setTimeout(() => {
             this.close();
           }, 500);
+        });
+      }
+      // ---- click event ----
+      if (this.link) {
+        window[`notif${this.id}`].style.cursor = 'pointer';
+        window[`notif${this.id}`].addEventListener('click', (e) => {
+          if (e.target !== window[`cl${this.id}`]) {
+            if (Array.isArray(this.link)) {
+              const l = this.link[0];
+              if (this.link[1]) window.open(l, '_blank');
+              else window.location.href = l;
+            } else {
+              window.location.href = this.link;
+            }
+          }
         });
       }
     }
