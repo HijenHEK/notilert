@@ -1,6 +1,6 @@
 {
   "name": "notilert",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Notilert is a highly customisable yet simple javascript notification component integrates with ease within your app !",
   "main": "index.js",
   "scripts": {
