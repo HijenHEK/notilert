@@ -48,7 +48,7 @@ new Notilert({content : ' i said hold my beer ! ' ,
 
 ## Options
 
-  1. __content__ : plain text default is 'test' 
+  1. __content__ : accepts text or html 
   
   2. __position__ : for now there are 4 possible positions
       - 'top-left'
@@ -73,7 +73,24 @@ new Notilert({content : ' i said hold my beer ! ' ,
       - 'danger' : red
       - 'alert' : yellowish
       - 'default' : ugly black and gray (test)
-  
+  10. __link__ : accepts either a string or an array
+
+      - string of the url , example :
+
+        ```javascript
+          new Notilert({content : "google" , link : "http://google.com" })
+        ```
+      since this has no option , default behavior is to open in the same window
+
+      - array has two items a string and a boolean
+        - the string is for the link
+        - the link target is set to _blank if the boolean is true (default is false)
+        - example :
+
+        ```javascript
+        new Notilert({content : "google" , link : ["http://google.com" , true]})
+
+        ```
 ## Methods (manual handle)
 
 - ...
