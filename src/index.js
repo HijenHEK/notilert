@@ -23,6 +23,8 @@ export default class Notilert {
       this.closeable = opt.closeable ?? true;
       this.type = opt.type ?? null;
       this.class = opt.class ?? null;
+      this.link = opt.link ?? null;
+
       Notilert.n[this.position] += 1;
       this.index = Notilert.n[this.position];
       this.id = `_${this.position}_${new Date().getTime()}_${this.index}`;
@@ -89,13 +91,14 @@ export default class Notilert {
       window[`notif${this.id}`] = document.getElementById(`Notilert${this.id}`);
       window[`close${this.id}`] = document.getElementById(`close${this.id}`);
       window[`notifStyleAtt${this.id}`] = document.createAttribute('style');
+      window[`close${this.id}`].style.opacity = '0.5';
 
       window[`notifStyleAtt${this.id}`].value = `padding : 1rem ; display: flex ; max-width: 40%;
                                                 justify-content : space-between ; align-items : center ; font-size : ${this.size} ;
                                                 color : ${this.color} ; border-radius : 5px ; font-family : ${this.font} ,sans-serif ;
                                                 box-shadow : 1px 1px 3px 1px ${this.bgColor} ;
                                                 background-color : ${this.bgColor} ; width : ${this.width} ; 
-                                                height : ${this.height} ; position : absolute ; z-index : 9999999999 ; opacity : 0.5`;
+                                                height : ${this.height} ; position : absolute ; z-index : 9999999999 ; opacity : 0.8`;
 
       window[`notif${this.id}`].setAttributeNode(window[`notifStyleAtt${this.id}`]);
 
@@ -137,18 +140,48 @@ export default class Notilert {
           }, 500);
         });
       }
+      // ---- click event ----
+      if (this.link) {
+        window[`notif${this.id}`].style.cursor = 'pointer';
+        window[`notif${this.id}`].addEventListener('click', (e) => {
+          if (e.target !== window[`cl${this.id}`]) {
+            window[`notif${this.id}`].style.opacity = '0.8';
+            if (Array.isArray(this.link)) {
+              const l = this.link[0];
+              if (this.link[1]) window.open(l, '_blank');
+              else window.location.href = l;
+            } else {
+              window.location.href = this.link;
+            }
+            this.close();
+          }
+        });
+      }
+
+      window[`notif${this.id}`].addEventListener('mouseenter', () => {
+        window[`notif${this.id}`].style.opacity = '1';
+      });
+      window[`notif${this.id}`].addEventListener('mouseleave', () => {
+        window[`notif${this.id}`].style.opacity = '0.7';
+      });
+      window[`close${this.id}`].addEventListener('mouseenter', () => {
+        window[`close${this.id}`].style.opacity = '1';
+      });
+      window[`close${this.id}`].addEventListener('mouseleave', () => {
+        window[`close${this.id}`].style.opacity = '0.7';
+      });
     }
 
     hide() {
       window[`notif${this.id}`].style.transform = `translateX(${this.position.includes('left') ? '-' : ''}150%)`;
       window[`notif${this.id}`].style.opacity = '0.2';
-      window[`notif${this.id}`].style.transition = 'all 0.7s ease-in';
+      window[`notif${this.id}`].style.transition = 'all 0.5s ease-in';
     }
 
     show() {
       window[`notif${this.id}`].style.transform = 'translateX(0)';
-      window[`notif${this.id}`].style.opacity = '0.9';
-      window[`notif${this.id}`].style.transition = 'all 0.4s ease-in';
+      window[`notif${this.id}`].style.opacity = '0.8';
+      window[`notif${this.id}`].style.transition = 'all 0.3s ease-in';
     }
 
     close() {
